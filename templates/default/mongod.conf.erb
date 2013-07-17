@@ -1,0 +1,24 @@
+# This config was dropped off by Chef
+# Your local changes will be lost
+
+# Data and File System
+dbpath = <%= @options[:dbpath] %>
+nojournal = <%= @options[:journal] ? 'false' : 'true' %>
+noprealloc = <%= @options[:prealloc] ? 'false' : 'true' %>
+smallfiles = <%= @options[:smallfiles] ? 'true' : 'false' %>
+
+# Logging
+logpath = <%= "#{@options[:logpath]}/#{@name}.log" %>
+logappend = true
+verbose = true
+
+# IP and Port
+port = <%= @options[:port] %>
+<% unless @options[:bind_ip].nil? -%>
+bind_ip = <%= @options[:bind_ip] %>
+<% end -%>
+
+# Replication
+<% unless @options[:replicaset].nil? -%>
+replSet = <%= @options[:replicaset] %>
+<% end -%>

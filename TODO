@@ -1,0 +1,12 @@
+STEPS
+
+* create directories
+* add users
+* download mongodb version foo, extract to /opt/mongodb-foo
+* drop off init script and config files
+* optionally start/enable service
+
+FUTURE
+support runit as an init style
+allow specifying pidfile
+import from edelight-mongodb to support freebsd
