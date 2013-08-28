@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe 'mongodb::default'
+
 # this will yield mongodb 2.4.5 binaries installed at /opt/mongodb/2.4.5/bin
 mongodb_release "i can put literally anything here" do
   version "2.4.5"
@@ -16,7 +18,7 @@ mongodb_release "i can put literally anything here" do
 end
 
 # this will configure and enable a mongod instance which uses the above release binaries
-mongodb_mongod_instance "mongodb" do
+mongod_instance "mongodb" do
   install_prefix '/opt/mongodb/2.4.5'
   action :enable
 end
