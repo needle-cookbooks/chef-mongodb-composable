@@ -38,7 +38,7 @@ class Chef
         service = Chef::Resource::RunitService.new(@new_resource.name, run_context)
         service.run_template_name('mongod')
         service.log_template_name('mongod')
-        service.cookbook('mongodb')
+        service.cookbook('mongodb-composable')
         service.subscribes(:restart, "template[#{config_file_path}]")
         service.options(
             'user' => @new_resource.user,
@@ -47,7 +47,7 @@ class Chef
           )
 
         config_file = Chef::Resource::Template.new(config_file_path, run_context)
-        config_file.cookbook('mongodb')
+        config_file.cookbook('mongodb-composable')
         config_file.source('mongod.conf.erb')
         config_file.owner(@new_resource.user)
         config_file.group(@new_resource.group)

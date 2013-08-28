@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: mongodb
+# Cookbook Name:: mongodb-composable
 # Recipe:: default
 #
 # Copyright (C) 2013 Needle, Inc.
