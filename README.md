@@ -1,6 +1,6 @@
-# mongodb cookbook
+# mongodb-composable cookbook
 
-This cookbook provides opinionated LWRPs for installing and configuring 10gen's MongoDB database, supervised by `runit`.
+This cookbook provides opinionated resources and providers for installing and configuring 10gen's MongoDB database, supervised by `runit`.
 
 # Requirements
 
@@ -16,7 +16,7 @@ Downloads and unpacks a MongoDB binary release tarball [as provided by 10gen](ht
 
 This resource requires a `version` parameter, and by default will unpack the release to `/opt/mongodb/$VERSION`.
 
-`mongodb_mongod_instance`
+`mongod_instance`
 
 Configures, starts and enables an instance of the `mongod` daemon as a service. Requires an `install_prefix` parameter.
 
@@ -30,7 +30,7 @@ They do nothing
 
 # TODO
 
-Add LWRPs for `mongodb_mongos_instance` and `mongodb_configsvr_instance`
+Add resources/providers for `mongodb_mongos_instance` and `mongodb_configsvr_instance`
 
 # Author
 
