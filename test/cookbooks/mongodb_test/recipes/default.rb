@@ -30,5 +30,7 @@ end
 # this will configure and enable a mongod instance which uses the above release binaries
 mongod_instance "mongodb" do
   install_prefix '/opt/mongodb/2.4.5'
+  dbpath '/opt/mongodb/data'
+  port 37017
   action :enable
 end
