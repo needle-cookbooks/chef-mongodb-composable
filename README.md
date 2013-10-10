@@ -1,3 +1,11 @@
+# Notice
+
+This cookbook is under active development, and its public interface may change.
+
+What this warning means is that the attributes, and actions used by `mongod_instance`,
+`mongodb_release` and other pieces of this cookbook may drastically change. 
+When using this cookbook please reference an exact SHA commit from this repository to ensure continuous functionality.
+
 # mongodb-composable cookbook
 
 This cookbook provides opinionated resources and providers for installing and configuring 10gen's MongoDB database, supervised by `runit`.
