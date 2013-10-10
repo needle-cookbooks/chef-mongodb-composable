@@ -18,12 +18,14 @@ class Chef
         create_user_and_group(@new_resource.user, @new_resource.group)
 
         [config_dir_path, @new_resource.logpath, @new_resource.dbpath].each do |dir_path|
-          dir = Chef::Resource::Directory.new(dir_path, run_context)
-          dir.owner(@new_resource.user)
-          dir.group(@new_resource.group)
-          dir.recursive(true)
-          dir.mode(00755)
-          dir.run_action(:create)
+          unless ::File.symlink?(dir_path)
+            dir = Chef::Resource::Directory.new(dir_path, run_context)
+            dir.owner(@new_resource.user)
+            dir.group(@new_resource.group)
+            dir.recursive(true)
+            dir.mode(00755)
+            dir.run_action(:create)
+          end
         end
 
         service = Chef::Resource::RunitService.new(@new_resource.name, run_context)
