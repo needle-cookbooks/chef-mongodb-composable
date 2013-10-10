@@ -7,12 +7,13 @@ class Chef
         @resource_name = :mongodb_release
         @provider = Chef::Provider::MongodbRelease
         @action = :install
-        @allowed_actions = [:install]
+        @allowed_actions = [:install, :symlink]
 
         @version = nil
         @checksum = nil
         @download_prefix = Chef::Config[:file_cache_path]
         @install_prefix = '/opt/mongodb'
+        @symlink_prefix = '/usr/local/bin'
         @user = 'mongodb'
         @group = 'mongodb'
       end
@@ -31,6 +32,10 @@ class Chef
 
       def install_prefix(arg=nil)
         set_or_return(:install_prefix, arg, :kind_of => [String])
+      end
+
+      def symlink_prefix(arg=nil)
+        set_or_return(:symlink_prefix, arg, :kind_of => [String])
       end
 
       def user(arg=nil)

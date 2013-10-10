@@ -32,6 +32,10 @@ class Chef
         @current_resource
       end
 
+      def versioned_path
+        return ::File.join(@new_resource.install_prefix, @new_resource.version)
+      end
+
       def action_install
         unless node['os'] == 'linux'
           Chef::Application.fatal "Sorry, I don't know how to install MongoDB on #{node['os']}"
@@ -46,7 +50,6 @@ class Chef
 
         tarball_name = "mongodb-linux-#{cpu}-#{@new_resource.version}.tgz"
         tarball_path = ::File.join(@new_resource.download_prefix, tarball_name)
-        versioned_path = ::File.join(@new_resource.install_prefix, @new_resource.version)
 
         create_user_and_group(@new_resource.user, @new_resource.group)
 
@@ -81,6 +84,16 @@ class Chef
           unpack_script.run_action(:run)
         end
 
+      end
+
+      def action_symlink
+        executables = ::Dir.glob(::File.join(versioned_path, 'bin', '*'))
+        executables.each do |exe|
+          link ::File.join(@new_resource.symlink_prefix, ::File.basename(exe)) do
+            to exe
+          end
+          @new_resource.updated_by_last_action(true)
+        end
       end
 
       def action_remove
