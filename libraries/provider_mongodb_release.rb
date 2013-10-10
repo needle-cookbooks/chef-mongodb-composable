@@ -1,13 +1,4 @@
-require 'chef/provider/directory'
-require 'chef/resource/directory'
-require 'chef/provider/template'
-require 'chef/resource/template'
-require 'chef/provider/file'
-require 'chef/resource/file'
-require 'chef/provider/user'
-require 'chef/resource/user'
-require 'chef/provider/group'
-require 'chef/resource/group'
+require 'chef/provider'
 
 class Chef
   class Provider
