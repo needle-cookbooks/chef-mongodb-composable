@@ -5,6 +5,10 @@
   [ -f $exe ] && [ -x $exe ]
 }
 
+@test "symlinked mongod binary into /usr/local/bin" {
+  [ -s /usr/local/bin/mongod ]
+}
+
 @test "started mongodb" {
   # should return a 0 status code if mongodb is running
   run /etc/init.d/mongodb status

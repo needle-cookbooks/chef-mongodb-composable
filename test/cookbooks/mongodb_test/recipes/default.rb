@@ -25,6 +25,7 @@ mongodb_release "i can put literally anything here" do
   action :install
   download_prefix '/opt/mongodb/cache'
   checksum '2f9791a33dda71f8ee8f40100f49944b9261ed51df1f62bdcbeef2d71973fcbf'
+  action [:install, :symlink]
 end
 
 # this will configure and enable a mongod instance which uses the above release binaries
