@@ -3,9 +3,15 @@
 
 # Data and File System
 dbpath = <%= @options[:dbpath] %>
-nojournal = <%= @options[:journal] ? 'false' : 'true' %>
-noprealloc = <%= @options[:prealloc] ? 'false' : 'true' %>
-smallfiles = <%= @options[:smallfiles] ? 'true' : 'false' %>
+<% if @options[:journal] == false -%>
+nojournal = true
+<% end -%>
+<% if @options[:prealloc] == false -%>
+noprealloc = true
+<% end -%>
+<% if @options[:smallfiles] == true -%>
+smallfiles = true
+<% end -%>
 
 # Logging
 logpath = <%= "#{@options[:logpath]}/#{@name}.log" %>
