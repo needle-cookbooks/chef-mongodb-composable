@@ -56,6 +56,7 @@ class Chef
               :configdb => @new_resource.configdb,
               :rest => @new_resource.rest,
               :prealloc => @new_resource.prealloc,
+              :smallfiles => @new_resource.smallfiles,
               :journal => @new_resource.journal,
               :replicaset => @new_resource.replicaset,
               :shard => @new_resource.shard,
