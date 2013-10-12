@@ -1,4 +1,4 @@
-name             'mongodb_test'
+name             'mongodb-test'
 maintainer       'YOUR_COMPANY_NAME'
 maintainer_email 'YOUR_EMAIL'
 license          'All rights reserved'
