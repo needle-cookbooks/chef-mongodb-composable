@@ -23,3 +23,7 @@
 @test "mongodb data is being written to /opt/mongodb/data/db" {
   [ -f /opt/mongodb/data/mongod.lock ] && [ -f /opt/mongodb/data/local.ns ]
 }
+
+@test "journaling is enabled" {
+  [ -d /opt/mongodb/data/journal ]
+}
