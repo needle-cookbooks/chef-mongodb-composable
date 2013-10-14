@@ -62,10 +62,11 @@ class Chef
               :shard => @new_resource.shard,
             }
           )
-        config_file.notifies(:restart, "service[#{@new_resource.name}]")
+        config_file.notifies(:restart, service)
         config_file.run_action(:create)
 
         service.run_action(:enable)
+        service.run_action(:restart) if config_file.updated_by_last_action?
       end
     end
   end
