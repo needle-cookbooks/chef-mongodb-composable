@@ -3,7 +3,7 @@
 This cookbook is under active development, and its public interface may change.
 
 What this warning means is that the attributes, and actions used by `mongod_instance`,
-`mongodb_release` and other pieces of this cookbook may drastically change. 
+`mongodb_release` and other pieces of this cookbook may drastically change.
 When using this cookbook please reference an exact SHA commit from this repository to ensure continuous functionality.
 
 # mongodb-composable cookbook
@@ -34,7 +34,7 @@ There are none
 
 # Recipes
 
-They do nothing
+default - installs runit to ensure it is available to the instance providers.
 
 # TODO
 
@@ -42,4 +42,6 @@ Add resources/providers for `mongodb_mongos_instance` and `mongodb_configsvr_ins
 
 # Author
 
-Author:: Needle Ops (<ops@needle.com>)
+Author:: Cameron Johnston (<cameron@rootdown.net>)
+
+Copyright:: 2013, Needle Inc.
