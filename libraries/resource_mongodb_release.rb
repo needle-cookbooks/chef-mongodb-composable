@@ -10,6 +10,7 @@ class Chef
         @allowed_actions = [:install, :symlink]
 
         @version = nil
+        @url = nil
         @checksum = nil
         @download_prefix = Chef::Config[:file_cache_path]
         @install_prefix = '/opt/mongodb'
@@ -20,6 +21,10 @@ class Chef
 
       def version(arg=nil)
         set_or_return(:version, arg, :kind_of => [String])
+      end
+
+      def url(arg=nil)
+        set_or_return(:url, arg, :kind_of => [String])
       end
 
       def checksum(arg=nil)

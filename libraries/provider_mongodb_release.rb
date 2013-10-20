@@ -1,3 +1,4 @@
+require 'uri'
 require 'chef/provider'
 
 class Chef
@@ -9,6 +10,7 @@ class Chef
       def initialize(*args)
         super
         @version = nil
+        @url = nil
         @checksum = nil
         @download_prefix = nil
         @install_prefix = nil
@@ -28,19 +30,11 @@ class Chef
       end
 
       def action_install
-        unless node['os'] == 'linux'
-          Chef::Application.fatal "Sorry, I don't know how to install MongoDB on #{node['os']}"
-        end
 
-        cpu = case node['kernel']['machine']
-        when /^(x86_|amd)64$/i
-          'x86_64'
-        when /^(x|i[3456])86$/i
-          'i686'
-        end
-
-        tarball_name = "mongodb-linux-#{cpu}-#{@new_resource.version}.tgz"
-        tarball_path = ::File.join(@new_resource.download_prefix, tarball_name)
+        tarball_source = ::URI.parse(@new_resource.url)
+        tarball_path = ::File.join(
+          @new_resource.download_prefix, ::File.basename(tarball_source.path)
+        )
 
         create_user_and_group(@new_resource.user, @new_resource.group)
 
@@ -58,7 +52,7 @@ class Chef
         end
 
         tarball = Chef::Resource::RemoteFile.new(tarball_path, run_context)
-        tarball.source "http://downloads.mongodb.org/linux/#{tarball_name}"
+        tarball.source @new_resource.url
         tarball.checksum(@new_resource.checksum) if @new_resource.checksum
         tarball.owner(@new_resource.user)
         tarball.group(@new_resource.group)
