@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'uri'
 require 'chef/provider'
 
@@ -9,7 +11,6 @@ class Chef
 
       def initialize(*args)
         super
-        @version = nil
         @url = nil
         @checksum = nil
         @download_prefix = nil
@@ -20,13 +21,12 @@ class Chef
 
       def load_current_resource
         @current_resource = Chef::Resource::MongodbRelease.new(new_resource.name, run_context)
-        @current_resource.version(new_resource.version)
         @current_resource.install_prefix(new_resource.install_prefix)
         @current_resource
       end
 
-      def versioned_path
-        return ::File.join(@new_resource.install_prefix, @new_resource.version)
+      def instance_path
+        ::File.join(@new_resource.install_prefix, @new_resource.name)
       end
 
       def action_install
@@ -38,7 +38,7 @@ class Chef
 
         create_user_and_group(@new_resource.user, @new_resource.group)
 
-        [@new_resource.download_prefix, versioned_path].each do |dir|
+        [@new_resource.download_prefix, instance_path].each do |dir|
           dir_resource = Chef::Resource::Directory.new(dir, run_context)
           dir_resource.mode(0755)
           dir_resource.owner(@new_resource.user)
@@ -48,7 +48,7 @@ class Chef
         end
 
         unless @new_resource.checksum
-          Chef::Log.warn("mongodb_release[#{@new_resource.version}] did not specify a checksum, chef will download the corresponding mongodb tarball on every run")
+          Chef::Log.warn("mongodb_release[#{@new_resource.name}] did not specify a checksum, chef will download the corresponding mongodb tarball on every run")
         end
 
         tarball = Chef::Resource::RemoteFile.new(tarball_path, run_context)
@@ -59,22 +59,25 @@ class Chef
         tarball.run_action(:create)
 
         unpack_script = Chef::Resource::Execute.new("unpack #{tarball_path}", run_context)
-        unpack_script.cwd(::File.join(@new_resource.install_prefix, @new_resource.version))
+        unpack_script.cwd(instance_path)
         unpack_script.command("tar --strip-components=1 -zxvf #{tarball_path}")
         unpack_script.user(@new_resource.user)
         unpack_script.group(@new_resource.group)
         unpack_script.subscribes(:run, "remote_file[#{tarball_path}]", :immediately)
 
-        unless ::File.exists?(::File.join(versioned_path, 'bin', 'mongod'))
+        unless ::File.exists?(::File.join(instance_path, 'bin', 'mongod'))
           unpack_script.run_action(:run)
         end
 
       end
 
       def action_symlink
-        executables = ::Dir.glob(::File.join(versioned_path, 'bin', '*'))
+        executables = ::Dir.glob(::File.join(instance_path, 'bin', '*'))
         executables.each do |exe|
-          link ::File.join(@new_resource.symlink_prefix, ::File.basename(exe)) do
+          symlink = ::File.join(
+            @new_resource.symlink_prefix, ::File.basename(exe)
+          )
+          link symlink do
             to exe
           end
           @new_resource.updated_by_last_action(true)

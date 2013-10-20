@@ -20,8 +20,7 @@
 include_recipe 'mongodb-composable::default'
 
 # this will yield mongodb 2.4.5 binaries installed at /opt/mongodb/2.4.5/bin
-mongodb_release "i can put literally anything here" do
-  version "2.4.5"
+mongodb_release "2.4.5" do
   url "http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.4.5.tgz"
   download_prefix '/opt/mongodb/cache'
   checksum '2f9791a33dda71f8ee8f40100f49944b9261ed51df1f62bdcbeef2d71973fcbf'

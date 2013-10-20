@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Chef
   class Resource
     class MongodbRelease < Chef::Resource
@@ -9,7 +11,7 @@ class Chef
         @action = :install
         @allowed_actions = [:install, :symlink]
 
-        @version = nil
+        @name = name
         @url = nil
         @checksum = nil
         @download_prefix = Chef::Config[:file_cache_path]
@@ -17,10 +19,6 @@ class Chef
         @symlink_prefix = '/usr/local/bin'
         @user = 'mongodb'
         @group = 'mongodb'
-      end
-
-      def version(arg=nil)
-        set_or_return(:version, arg, :kind_of => [String])
       end
 
       def url(arg=nil)
