@@ -40,27 +40,17 @@ class Chef
           )
 
         config_file = Chef::Resource::Template.new(config_file_path, run_context)
-        config_file.cookbook('mongodb-composable')
-        config_file.source('mongod.conf.erb')
+        config_file.cookbook(@new_resource.config_cookbook || @new_resource.cookbook_name.to_s)
+        config_file.source(@new_resource.config_template)
         config_file.owner(@new_resource.user)
         config_file.group(@new_resource.group)
         config_file.mode(00644)
         config_file.variables(
             :name => @new_resource.name,
             :executable => executable,
-            :options => {
-              :bind_ip => @new_resource.bind_ip,
-              :port => @new_resource.port,
-              :logpath => @new_resource.logpath,
-              :dbpath => @new_resource.dbpath,
-              :configdb => @new_resource.configdb,
-              :rest => @new_resource.rest,
-              :prealloc => @new_resource.prealloc,
-              :smallfiles => @new_resource.smallfiles,
-              :journal => @new_resource.journal,
-              :replicaset => @new_resource.replicaset,
-              :shard => @new_resource.shard,
-            }
+            :dbpath => @new_resource.dbpath,
+            :logpath => @new_resource.logpath,
+            :options => @new_resource.options
           )
         config_file.notifies(:restart, service)
         config_file.run_action(:create)

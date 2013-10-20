@@ -2,7 +2,7 @@
 # Your local changes will be lost
 
 # Data and File System
-dbpath = <%= @options[:dbpath] %>
+dbpath = <%= @dbpath %>
 <% if @options[:journal] == false -%>
 nojournal = true
 <% end -%>
@@ -14,7 +14,7 @@ smallfiles = true
 <% end -%>
 
 # Logging
-logpath = <%= "#{@options[:logpath]}/#{@name}.log" %>
+logpath = <%= "#{@logpath}/#{@name}.log" %>
 logappend = true
 verbose = true
 

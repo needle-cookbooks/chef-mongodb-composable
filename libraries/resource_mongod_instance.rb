@@ -12,17 +12,21 @@ class Chef
         @user = 'mongodb'
         @group = 'mongodb'
         @install_prefix = '/opt/mongodb'
-        @bind_ip = nil
-        @port = 27017
+        @config_template = 'mongod.conf.erb'
+        @config_cookbook = nil
         @logpath = '/var/log/mongodb'
         @dbpath = '/data/db'
-        @configdb = nil
-        @rest = false
-        @prealloc = true
-        @journal = true
-        @smallfiles = false
-        @replicaset = nil
-        @shard = nil
+        @options = {
+          bind_ip: nil,
+          port: 27017,
+          configdb: nil,
+          rest: false,
+          prealloc: true,
+          journal: true,
+          smallfiles: false,
+          replicaset: nil,
+          shard: nil
+        }
       end
 
       def user(arg=nil)
@@ -37,48 +41,24 @@ class Chef
         set_or_return(:install_prefix, arg, :kind_of => [String])
       end
 
-      def bind_ip(arg=nil)
-        set_or_return(:bind_ip, arg, :kind_of => [String])
-      end
-
-      def port(arg=nil)
-        set_or_return(:port, arg, :kind_of => [Fixnum])
+      def dbpath(arg=nil)
+        set_or_return(:dbpath, arg, :kind_of => [String])
       end
 
       def logpath(arg=nil)
         set_or_return(:logpath, arg, :kind_of => [String])
       end
 
-      def dbpath(arg=nil)
-        set_or_return(:dbpath, arg, :kind_of => [String])
+      def config_template(arg=nil)
+        set_or_return(:config_template, arg, :kind_of => [String])
       end
 
-      def configdb(arg=nil)
-        set_or_return(:configdb, arg, :kind_of => [String, NilClass])
+      def config_cookbook(arg=nil)
+        set_or_return(:config_cookbook, arg, :kind_of => [String])
       end
 
-      def rest(arg=nil)
-        set_or_return(:rest, arg, :kind_of => [TrueClass, FalseClass])
-      end
-
-      def prealloc(arg=nil)
-        set_or_return(:prealloc, arg, :kind_of => [TrueClass, FalseClass])
-      end
-
-      def journal(arg=nil)
-        set_or_return(:journal, arg, :kind_of => [TrueClass, FalseClass])
-      end
-
-      def smallfiles(arg=nil)
-        set_or_return(:smallfiles, arg, :kind_of => [TrueClass, FalseClass])
-      end
-
-      def replicaset(arg=nil)
-        set_or_return(:replicaset, arg, :kind_of => [String, NilClass])
-      end
-
-      def shard(arg=nil)
-        set_or_return(:shard, arg, :kind_of => [String, NilClass])
+      def options(arg=nil)
+        set_or_return(:options, arg, :kind_of => [Hash])
       end
     end
   end

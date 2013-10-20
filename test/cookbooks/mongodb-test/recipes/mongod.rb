@@ -32,6 +32,6 @@ end
 mongod_instance "mongodb" do
   install_prefix '/opt/mongodb/2.4.5'
   dbpath '/opt/mongodb/data'
-  port 37017
+  options({ port: 37017 })
   action :enable
 end
