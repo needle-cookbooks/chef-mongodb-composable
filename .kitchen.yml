@@ -25,6 +25,3 @@ suites:
 - name: mongod
   run_list: ["recipe[mongodb-test::mongod]"]
   attributes: {}
-- name: mongod-nope
-  run_list: ["recipe[mongodb-test::nope]"]
-  attributes: {}

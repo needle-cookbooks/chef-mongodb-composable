@@ -28,9 +28,20 @@ mongodb_release "2.4.5" do
 end
 
 # this will configure and enable a mongod instance which uses the above release binaries
-mongod_instance "mongodb" do
+mongod_instance "mongod-instance1" do
   install_prefix '/opt/mongodb/2.4.5'
-  dbpath '/opt/mongodb/data'
-  options({ port: 37017 })
+  dbpath '/opt/mongodb/instance1/data'
+  action :enable
+end
+
+mongod_instance "mongod-instance2" do
+  install_prefix '/opt/mongodb/2.4.5'
+  dbpath '/opt/mongodb/instance2/data'
+  options({
+    port: 37017,
+    journal: false,
+    prealloc: false,
+    smallfiles: true
+  })
   action :enable
 end
