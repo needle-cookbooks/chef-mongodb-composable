@@ -100,3 +100,8 @@ Vagrantfile
 .kitchen.yml
 .kitchen.local.yml
 .kitchen/*
+
+# Bundler #
+###########
+Gemfile
+Gemfile.lock
