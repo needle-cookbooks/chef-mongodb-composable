@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mongodb_test
-# Recipe:: default
+# Recipe:: mongod
 #
 # Copyright 2013, Needle, Inc.
 #
