@@ -28,6 +28,8 @@ This resource requires a `version` parameter, and by default will unpack the rel
 
 Configures, starts and enables an instance of the `mongod` daemon as a service. Requires an `install_prefix` parameter.
 
+Examine the test recipes under `test/cookbooks/mongodb-test/recipes' for examples of these resources in use.
+
 # Attributes
 
 There are none
