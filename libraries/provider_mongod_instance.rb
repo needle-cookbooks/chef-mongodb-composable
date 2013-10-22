@@ -7,7 +7,7 @@ class Chef
       include ::Opscode::MongoDB::ProviderHelpers
 
       def load_current_resource
-        @new_resource.state
+        # it does nothing, but this method must be defined
       end
 
       def action_enable
