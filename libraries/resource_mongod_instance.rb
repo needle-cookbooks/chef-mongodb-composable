@@ -18,6 +18,7 @@ class Chef
         @config_cookbook = nil
         @logpath = '/var/log/mongodb'
         @dbpath = '/data/db'
+        @autorestart = false
         @options = {
           bind_ip: nil,
           port: 27017,
@@ -57,6 +58,10 @@ class Chef
 
       def config_cookbook(arg=nil)
         set_or_return(:config_cookbook, arg, :kind_of => [String])
+      end
+
+      def autorestart(arg=nil)
+        set_or_return(:autorestart, arg, :kind_of => [TrueClass, FalseClass])
       end
 
       def options(arg=nil)

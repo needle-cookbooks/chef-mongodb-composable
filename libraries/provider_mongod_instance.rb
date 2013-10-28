@@ -56,7 +56,9 @@ class Chef
         config_file.run_action(:create)
 
         service.run_action(:enable)
-        service.run_action(:restart) if config_file.updated_by_last_action?
+        if new_resource.autorestart
+          service.run_action(:restart) if config_file.updated_by_last_action?
+        end
       end
     end
   end
