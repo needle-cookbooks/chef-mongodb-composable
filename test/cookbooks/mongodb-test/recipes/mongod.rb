@@ -17,23 +17,23 @@
 # limitations under the License.
 #
 
-# this will yield mongodb 2.4.5 binaries installed at /opt/mongodb/2.4.5/bin
-mongodb_release "2.4.5" do
-  url "http://downloads.mongodb.org/linux/mongodb-linux-x86_64-2.4.5.tgz"
-  download_prefix '/opt/mongodb/cache'
-  checksum '2f9791a33dda71f8ee8f40100f49944b9261ed51df1f62bdcbeef2d71973fcbf'
+# this will yield mongodb binaries installed at "/opt/mongodb/#{node['mongodb_test']['version']}/bin"
+mongodb_release node['mongodb_test']['version'] do
+  url node['mongodb_test']['tarball_url']
+  download_prefix node['mongodb_test']['download_prefix']
+  checksum node['mongodb_test']['tarball_checksum']
   action [:install, :symlink]
 end
 
 # this will configure and enable a mongod instance which uses the above release binaries
 mongod_instance "mongod-instance1" do
-  install_prefix '/opt/mongodb/2.4.5'
+  install_prefix "/opt/mongodb/#{node['mongodb_test']['version']}"
   dbpath '/opt/mongodb/instance1/data'
   action :enable
 end
 
 mongod_instance "mongod-instance2" do
-  install_prefix '/opt/mongodb/2.4.5'
+  install_prefix "/opt/mongodb/#{node['mongodb_test']['version']}"
   dbpath '/opt/mongodb/instance2/data'
   options({
     port: 37017,
