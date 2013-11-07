@@ -65,7 +65,7 @@ class Chef
         unpack_script.group(@new_resource.group)
         unpack_script.subscribes(:run, "remote_file[#{tarball_path}]", :immediately)
 
-        unless ::File.exists?(::File.join(instance_path, 'bin', 'mongod'))
+        if tarball.updated_by_last_action?
           unpack_script.run_action(:run)
         end
 
