@@ -31,7 +31,7 @@ class Chef
         service = Chef::Resource::RunitService.new(@new_resource.name, run_context)
         service.run_template_name('mongodb')
         service.log_template_name('mongodb')
-        service.cookbook('mongodb-composable')
+        service.cookbook(@new_resource.service_cookbook || 'mongodb-composable')
         service.subscribes(:restart, "template[#{config_file_path}]")
         service.options(
             'user' => @new_resource.user,
