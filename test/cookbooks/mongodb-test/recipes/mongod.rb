@@ -35,6 +35,7 @@ end
 mongod_instance "mongod-instance2" do
   install_prefix "/opt/mongodb/#{node['mongodb_test']['version']}"
   dbpath '/opt/mongodb/instance2/data'
+  service_cookbook 'mongodb-test'
   options({
     port: 37017,
     journal: false,
