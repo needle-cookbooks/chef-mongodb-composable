@@ -16,6 +16,7 @@ class Chef
         @install_prefix = '/opt/mongodb'
         @config_template = 'mongod.conf.erb'
         @config_cookbook = nil
+        @service_cookbook = nil
         @logpath = '/var/log/mongodb'
         @dbpath = '/data/db'
         @autorestart = false
@@ -58,6 +59,10 @@ class Chef
 
       def config_cookbook(arg=nil)
         set_or_return(:config_cookbook, arg, :kind_of => [String])
+      end
+
+      def service_cookbook(arg=nil)
+        set_or_return(:service_cookbook, arg, :kind_of => [String])
       end
 
       def autorestart(arg=nil)
