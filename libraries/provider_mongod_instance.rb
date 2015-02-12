@@ -12,7 +12,6 @@ class Chef
 
       def action_enable
         executable = ::File.join(@new_resource.install_prefix, 'bin/mongod')
-        ulimit = @new_resource.ulimit
         config_dir_path = ::File.join(@new_resource.install_prefix, 'config')
         config_file_path = ::File.join(@new_resource.install_prefix, 'config', "#{@new_resource.name}.conf")
 
