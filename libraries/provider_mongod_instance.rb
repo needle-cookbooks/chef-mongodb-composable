@@ -12,6 +12,7 @@ class Chef
 
       def action_enable
         executable = ::File.join(@new_resource.install_prefix, 'bin/mongod')
+        ulimit = @new_resource.ulimit
         config_dir_path = ::File.join(@new_resource.install_prefix, 'config')
         config_file_path = ::File.join(@new_resource.install_prefix, 'config', "#{@new_resource.name}.conf")
 
@@ -33,11 +34,21 @@ class Chef
         service.log_template_name('mongodb')
         service.cookbook(@new_resource.service_cookbook || 'mongodb-composable')
         service.subscribes(:restart, "template[#{config_file_path}]")
-        service.options(
+        if @new_resource.ulimit
+          service.options(
+            'user' => @new_resource.user,
+            'ulimit' => @new_resource.ulimit,
+            'executable' => executable,
+            'config_file' => config_file_path
+          )
+        else
+          service.options(
             'user' => @new_resource.user,
             'executable' => executable,
             'config_file' => config_file_path
           )
+        end
+
 
         config_file = Chef::Resource::Template.new(config_file_path, run_context)
         config_file.cookbook(@new_resource.config_cookbook || @new_resource.cookbook_name.to_s)

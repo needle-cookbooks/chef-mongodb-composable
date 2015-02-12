@@ -1,4 +1,6 @@
 #!/bin/sh
 exec 2>&1
-ulimit -n 64000
+<%- if @options['ulimit'] -%>
+ulimit -n <%= @options['ulimit'] %>
+<% end -%>
 exec chpst -u <%= @options['user'] %> <%= @options['executable'] %> --config <%= @options['config_file'] %>
