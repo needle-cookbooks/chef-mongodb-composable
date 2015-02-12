@@ -1,4 +1,7 @@
 #!/bin/sh
 # This service template originates from the test cookbook
 exec 2>&1
+<%- if @options['ulimit'] -%>
+ulimit -n <%= @options['ulimit'] %>
+<% end -%>
 exec chpst -u <%= @options['user'] %> <%= @options['executable'] %> --config <%= @options['config_file'] %>

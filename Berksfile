@@ -1,4 +1,5 @@
-site :opscode
+source "https://berkshelf.needle.com"
+source "https://supermarket.chef.io"
 
 metadata
 
