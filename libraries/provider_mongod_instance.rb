@@ -35,6 +35,7 @@ class Chef
         service.subscribes(:restart, "template[#{config_file_path}]")
         service.options(
             'user' => @new_resource.user,
+            'ulimit' => @new_resource.ulimit,
             'executable' => executable,
             'config_file' => config_file_path
           )

@@ -13,6 +13,7 @@ class Chef
 
         @user = 'mongodb'
         @group = 'mongodb'
+        @ulimit = nil
         @install_prefix = '/opt/mongodb'
         @config_template = 'mongod.conf.erb'
         @config_cookbook = nil
@@ -39,6 +40,10 @@ class Chef
 
       def group(arg=nil)
         set_or_return(:group, arg, :regex => [Chef::Config[:group_valid_regex]])
+      end
+
+      def ulimit(arg=nil)
+        set_or_return(:ulimit, arg, :kind_of => [String])
       end
 
       def install_prefix(arg=nil)
