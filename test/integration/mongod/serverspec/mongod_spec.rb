@@ -1,4 +1,5 @@
-require 'spec_helper'
+require 'serverspec'
+set :backend, :exec
 
 describe file('/opt/mongodb/2.4.5/bin/mongod') do
   it { should be_file }
