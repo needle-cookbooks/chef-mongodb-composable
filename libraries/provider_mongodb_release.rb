@@ -5,7 +5,7 @@ require 'chef/provider'
 
 class Chef
   class Provider
-    class MongodbRelease < Chef::Provider
+    class MongodbRelease < Chef::Provider::LWRPBase
 
       include ::Opscode::MongoDB::ProviderHelpers
 
