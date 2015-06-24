@@ -22,6 +22,8 @@ The cookbook defines the following resources:
 
 Downloads and unpacks a MongoDB binary release tarball [as provided by 10gen](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-linux/).
 
+The checksum used for the tarball is a sha256.
+
 This resource requires a `version` parameter, and by default will unpack the release to `/opt/mongodb/$VERSION`.
 
 `mongod_instance`
